@@ -5,8 +5,8 @@ on:
     branches:
       - master
     paths:
-      - docker/databases/Postgres.Dockerfile
-      - docker/databases/docker-entrypoint-initdb.d/*
+      - docker/Dockerfile
+      - docker/docker-entrypoint-initdb.d/*
   workflow_dispatch: # on button click
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Login to docker
         run: echo ${{ secrets.CI_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
-      - name: Build Couchdb Booter
-        run: docker build -t ghcr.io/herebedragonssystems/alfred-pg:$(cat package.json | jq -r '.version') -t gghcr.io/herebedragonssystems/alfred-pg:latest -f ./docker/databases/Postgres.Dockerfile ./docker/databases
-      - name: Publish Couchdb Booter
-        run: docker push ghcr.io/herebedragonssystems/alfred-pg:$(cat package.json | jq -r '.version') && docker push ghcr.io/herebedragonssystems/alfred-pg:latest
+      - name: Build PG Age Base
+        run: docker build -t ghcr.io/herebedragonssystems/alfred-pg-age:$(cat package.json | jq -r '.version') -t gghcr.io/herebedragonssystems/alfred-pg-age:latest -f ./docker/Dockerfile .
+      - name: Publish PG Age Base
+        run: docker push ghcr.io/herebedragonssystems/alfred-pg-age:$(cat package.json | jq -r '.version') && docker push ghcr.io/herebedragonssystems/alfred-pg-age:latest
