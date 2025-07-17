@@ -21,6 +21,6 @@ jobs:
       - name: Login to docker
         run: echo ${{ secrets.CI_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
       - name: Build PG Age Base
-        run: docker build -t ghcr.io/herebedragonssystems/age:16 -t ghcr.io/herebedragonssystems/age:latest -f ./docker/Dockerfile .
+        run: docker build --target=build -t ghcr.io/herebedragonssystems/age:16 -t ghcr.io/herebedragonssystems/age:latest -f ./docker/Dockerfile .
       - name: Publish PG Age Base
         run: docker push ghcr.io/herebedragonssystems/age:16 && docker push ghcr.io/herebedragonssystems/age:latest
